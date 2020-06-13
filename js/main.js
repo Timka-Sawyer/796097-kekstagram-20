@@ -1,7 +1,7 @@
 'use strict';
 
 var COUNT = 25;
-var COMMENTS_NAMES = ['Альпака', 'Капибара', 'Енот', 'Тануки', 'Хомяк'];
+var COMMENTS_NAMES = ['Альпака', 'Капибара', 'Енот', 'Тануки', 'Хомяк', 'Суслик'];
 var COMMENTS_MESSAGE = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -14,37 +14,44 @@ var photoListElement = document.querySelector('.pictures');
 var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 
-function getRandomInLimit(min, max) {
+var getRandomInLimit = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
-}
+};
 
-function getArrayRandElement(arr) {
-  var rand = getRandomInLimit(0, arr.length);
+var getArrayRandElement = function (arr) {
+  var rand = getRandomInLimit(0, arr.length - 1);
   return arr[rand];
-}
+};
 
-var getPhotoArray = function () {
+var generateCommentsArray = function (count) {
+  var result = [];
+
+  for (var i = 0; i < count; i++) {
+    result.push({
+      avatar: 'img/avatar-' + getRandomInLimit(1, 6) + '.svg',
+      message: getArrayRandElement(COMMENTS_MESSAGE),
+      name: getArrayRandElement(COMMENTS_NAMES),
+    });
+  }
+  return result;
+};
+
+var createPhotoArray = function () {
   var photoArray = [];
-  var j = 1;
+  var randomCountLengthComments = getRandomInLimit(1, 6);
 
   for (var i = 0; i < COUNT; i++) {
     photoArray.push({
-      url: 'photos/' + j++ + '.jpg',
+      url: 'photos/' + (i + 1) + '.jpg',
       description: 'Случайная фотография',
       likes: getRandomInLimit(15, 200),
-      comments: [
-        {
-          avatar: 'img/avatar-' + getRandomInLimit(1, 6) + '.svg',
-          message: getArrayRandElement(COMMENTS_MESSAGE),
-          name: getArrayRandElement(COMMENTS_NAMES),
-        }
-      ]
+      comments: generateCommentsArray(randomCountLengthComments)
     });
   }
-  return (photoArray);
+  return photoArray;
 };
 
-var photos = getPhotoArray();
+var photos = createPhotoArray();
 
 var renderPhoto = function (photo) {
   var photoElement = photoTemplate.cloneNode(true);
