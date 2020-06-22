@@ -12,6 +12,7 @@ var COMMENTS_MESSAGE = [
 ];
 var photoListElement = document.querySelector('.pictures');
 var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+var bigPhoto = document.querySelector('.big-picture');
 
 
 var getRandomInLimit = function (min, max) {
@@ -43,7 +44,7 @@ var createPhotoArray = function () {
   for (var i = 0; i < COUNT; i++) {
     photoArray.push({
       url: 'photos/' + (i + 1) + '.jpg',
-      description: 'Случайная фотография',
+      description: 'Крутая фота',
       likes: getRandomInLimit(15, 200),
       comments: generateCommentsArray(randomCountLengthComments)
     });
@@ -70,3 +71,32 @@ for (var i = 0; i < photos.length; i++) {
 }
 
 photoListElement.appendChild(fragment);
+
+var renderComment = function (photoObj) {
+  var commentElement = document.querySelector('.social__comment').cloneNode(true);
+
+  commentElement.querySelector('.social__picture').src = photoObj.avatar;
+  commentElement.querySelector('.social__picture').alt = photoObj.name;
+  commentElement.querySelector('.social__text').textContent = photoObj.message;
+  return commentElement;
+};
+
+var renderBigPhoto = function (photoArr) {
+  document.querySelector('.big-picture__img').querySelector('img').src = photoArr[0].url;
+  document.querySelector('.likes-count').textContent = photoArr[0].likes;
+  document.querySelector('.comments-count').textContent = photoArr[0].comments.length;
+  document.querySelector('.social__comment').querySelector('img').src = photoArr[0].url;
+  document.querySelector('.social__comment-count').classList.add('hidden');
+  document.querySelector('.comments-loader').classList.add('hidden');
+  document.querySelector('body').classList.add('modal-open');
+  document.querySelector('.social__caption').textContent = photoArr[0].description;
+
+  for (var commentCount = 0; commentCount < photoArr[0].comments.length; commentCount++) {
+    document.querySelector('.social__comments').appendChild(renderComment(photoArr[0].comments[commentCount]));
+  }
+  bigPhoto.classList.remove('hidden');
+
+  return 0;
+};
+
+renderBigPhoto(photos);
