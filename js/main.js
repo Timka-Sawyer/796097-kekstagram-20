@@ -84,7 +84,6 @@ var createComment = function () {
   commentBox.appendChild(commentImg);
   commentBox.appendChild(commentText);
 
-  console.log(commentBox);
   return commentBox;
 };
 
