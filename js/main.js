@@ -12,6 +12,7 @@ var COMMENTS_MESSAGE = [
 ];
 var photoListElement = document.querySelector('.pictures');
 var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+var bigPhoto = document.querySelector('.big-picture');
 
 
 var getRandomInLimit = function (min, max) {
@@ -43,7 +44,7 @@ var createPhotoArray = function () {
   for (var i = 0; i < COUNT; i++) {
     photoArray.push({
       url: 'photos/' + (i + 1) + '.jpg',
-      description: 'Случайная фотография',
+      description: 'Крутая фота',
       likes: getRandomInLimit(15, 200),
       comments: generateCommentsArray(randomCountLengthComments)
     });
@@ -70,3 +71,50 @@ for (var i = 0; i < photos.length; i++) {
 }
 
 photoListElement.appendChild(fragment);
+
+var createComment = function () {
+  var commentBox = document.createElement('li');
+  var commentImg = document.createElement('img');
+  var commentText = document.createElement('p');
+
+  commentBox.classList.add('social__comment');
+  commentImg.classList.add('social__picture');
+  commentText.classList.add('social__text');
+
+  commentBox.appendChild(commentImg);
+  commentBox.appendChild(commentText);
+
+  return commentBox;
+};
+
+var renderComment = function (photoObj) {
+  var commentElement = createComment();
+
+  commentElement.querySelector('.social__picture').src = photoObj.avatar;
+  commentElement.querySelector('.social__picture').alt = photoObj.name;
+  commentElement.querySelector('.social__text').textContent = photoObj.message;
+  return commentElement;
+};
+
+var renderBigPhoto = function (photo) {
+  document.querySelector('.big-picture__img').querySelector('img').src = photo.url;
+  document.querySelector('.likes-count').textContent = photo.likes;
+  document.querySelector('.comments-count').textContent = photo.comments.length;
+  document.querySelector('.social__comment').querySelector('img').src = photo.url;
+  document.querySelector('body').classList.add('modal-open');
+  document.querySelector('.social__caption').textContent = photo.description;
+
+  var socialComments = document.querySelector('.social__comments');
+
+  socialComments.innerHTML = '';
+  createComment();
+  for (var commentCount = 0; commentCount < photo.comments.length; commentCount++) {
+    document.querySelector('.social__comments').appendChild(renderComment(photo.comments[commentCount]));
+  }
+
+  bigPhoto.classList.remove('hidden');
+  document.querySelector('.social__comment-count').classList.add('hidden');
+  document.querySelector('.comments-loader').classList.add('hidden');
+};
+
+renderBigPhoto(photos[0]);
