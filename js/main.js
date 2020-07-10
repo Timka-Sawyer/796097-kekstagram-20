@@ -242,7 +242,7 @@ var isValid = function () {
   }
 };
 
-// НАСТРОЙКА РАЗМЕРА ИЗОБРАЖЕНИЯ
+// НАСТРОЙКА РАЗМЕРА
 scaleValue.value = realScaleValue + '%';
 imgClass.style.transform = 'scale(0.55)';
 
