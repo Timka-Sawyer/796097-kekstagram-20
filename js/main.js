@@ -31,11 +31,8 @@ var levelBar = document.querySelector('.effect-level__line');
 var uploadPhoto = document.querySelector('#upload-file');
 var overlayEdit = document.querySelector('.img-upload__overlay');
 var overlayEditClose = document.querySelector('#upload-cancel');
-var hashtagValid = true;
 var hashtagArr = null;
 var hashtag = document.querySelector('.text__hashtags');
-var hashtagForm = document.querySelector('.img-upload__form');
-var imgSubmit = document.querySelector('.img-upload__submit');
 var letterRange = /[^a-zA-Zа-яёА-ЯЁ0-9]+/g;
 var effectPin = document.querySelector('.effect-level__pin');
 var effectPinValue = document.querySelector('.effect-level__value');
@@ -148,7 +145,7 @@ renderBigPhoto(photos[0]);
 
 var defaultUploadValue = function () {
   uploadPhoto.value = '';
-}
+};
 
 var openPopup = function () {
   overlayEdit.classList.remove('hidden');
@@ -180,14 +177,14 @@ var onPopupEscPress = function (evt) {
 var setEffectValue = function (value) {
   effectPinValue.value = value;
   effectPin.style.left = value + '%';
-  effectLevelDepth.style.width =  value + '%';
-}
+  effectLevelDepth.style.width = value + '%';
+};
 
 var onImgEffectChange = function (evt) {
   imgClass.classList.remove('effects__preview--' + effectSecondPart);
   effectSecondPart = evt.target.value;
 
-  if (evt.target.value == 'none') {
+  if (evt.target.value === 'none') {
     effectLevel.classList.add('hidden');
   }
 
@@ -199,15 +196,15 @@ var onImgEffectChange = function (evt) {
 };
 
 var isOriginElement = function(arr) {
-  var seen = {}; // тут каждый новый хэштег будет ключом объекта
-  
-  for(var i = 0; i < arr.length; i++) {
-    var item = arr[i].toLowerCase();
-    if(!seen[item]) {
+  var seen = {};
+
+  for (var count = 0; count < arr.length; count++) {
+    var item = arr[count].toLowerCase();
+    if (!seen[item]) {
       seen[item] = 1;
     }
   }
-  return Object.keys(seen).length == arr.length;
+  return Object.keys(seen).length === arr.length;
 };
 
 effectLevel.classList.add('hidden');
@@ -215,7 +212,7 @@ uploadPhoto.addEventListener('change', openPopup);
 imgUploadEffects.addEventListener('change', onImgEffectChange);
 
 // НАСТРОЙКА ФИЛЬТРА
-effectPin.addEventListener('mouseup', function (evt) {
+effectPin.addEventListener('mouseup', function () {
   var minSliderPosition = levelBar.offsetLeft - effectPin.offsetWidth;
   var maxSliderPosition = minSliderPosition + levelBar.offsetWidth;
   var barWidth = maxSliderPosition - minSliderPosition;
@@ -252,13 +249,10 @@ hashtag.addEventListener('input', function () {
   hashtag.setCustomValidity('');
 
   if (!hashtagArr) {
-    console.log('kk');
     hashtag.setCustomValidity('');
-  }
-  else if (hashtagArr.length > 5) {
+  } else if (hashtagArr.length > 5) {
     hashtag.setCustomValidity('Максимальное число ХэшТегов – 5');
-  }
-  else {
+  } else {
     for (var count = 0; count < hashtagArr.length; count++) {
       hashtag.setCustomValidity('');
       if (hashtagArr[count][0] !== '#') {
@@ -270,7 +264,7 @@ hashtag.addEventListener('input', function () {
       if (!letterRange.test(hashtagArr[count])) {
         hashtag.setCustomValidity('Хэштег содержит недопустимый символ');
       }
-      if (hashtagArr[count][0] == '#' && hashtagArr[count].length < 2) {
+      if (hashtagArr[count][0] === '#' && hashtagArr[count].length < 2) {
         hashtag.setCustomValidity('Хэштег не должен состоять только из решётки');
       }
       if (!isOriginElement(hashtagArr)) {
