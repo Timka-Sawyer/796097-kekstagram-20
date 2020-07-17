@@ -195,7 +195,7 @@ var onImgEffectChange = function (evt) {
   }
 };
 
-var isOriginElement = function(arr) {
+var isOriginElement = function (arr) {
   var seen = {};
 
   for (var count = 0; count < arr.length; count++) {
