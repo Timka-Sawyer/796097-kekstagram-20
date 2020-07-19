@@ -22,7 +22,9 @@ var bigPhoto = document.querySelector('.big-picture');
 var scaleSmall = document.querySelector('.scale__control--smaller');
 var scaleBig = document.querySelector('.scale__control--bigger');
 var scaleValue = document.querySelector('.scale__control--value');
-var effectSecondPart = 'none';
+var EFFECT_DEFAULT_CLASS = 'none';
+var EFFECT_CLASS_FIRST_PART = 'effects__preview--';
+var effectSecondPart = EFFECT_DEFAULT_CLASS;
 var imgClass = document.querySelector('.img-upload__preview');
 var effectLevel = document.querySelector('.img-upload__effect-level');
 var effectLevelDepth = document.querySelector('.effect-level__depth');
@@ -33,7 +35,7 @@ var overlayEdit = document.querySelector('.img-upload__overlay');
 var overlayEditClose = document.querySelector('#upload-cancel');
 var hashtagArr = null;
 var hashtag = document.querySelector('.text__hashtags');
-var letterRange = /[^a-zA-Zа-яёА-ЯЁ0-9]+/g;
+var LETTER_RANGE = /[#^a-zA-Zа-яёА-ЯЁ0-9]+/g;
 var effectPin = document.querySelector('.effect-level__pin');
 var effectPinValue = document.querySelector('.effect-level__value');
 
@@ -181,16 +183,16 @@ var setEffectValue = function (value) {
 };
 
 var onImgEffectChange = function (evt) {
-  imgClass.classList.remove('effects__preview--' + effectSecondPart);
+  imgClass.classList.remove(EFFECT_CLASS_FIRST_PART + effectSecondPart);
   effectSecondPart = evt.target.value;
 
-  if (evt.target.value === 'none') {
+  if (evt.target.value === EFFECT_DEFAULT_CLASS) {
     effectLevel.classList.add('hidden');
   }
 
-  if (evt.target.value !== 'none') {
+  if (evt.target.value !== EFFECT_DEFAULT_CLASS) {
     effectLevel.classList.remove('hidden');
-    imgClass.classList.add('effects__preview--' + effectSecondPart);
+    imgClass.classList.add(EFFECT_CLASS_FIRST_PART + effectSecondPart);
     setEffectValue(100);
   }
 };
@@ -216,9 +218,9 @@ effectPin.addEventListener('mouseup', function () {
   var minSliderPosition = levelBar.offsetLeft - effectPin.offsetWidth;
   var maxSliderPosition = minSliderPosition + levelBar.offsetWidth;
   var barWidth = maxSliderPosition - minSliderPosition;
-  var pinCor = effectPin.offsetLeft;
+  var pinPosition = effectPin.offsetLeft;
   var onePercent = barWidth / 100;
-  var pinPercents = pinCor / onePercent;
+  var pinPercents = pinPosition / onePercent;
 
   setEffectValue(pinPercents);
 });
@@ -261,7 +263,7 @@ hashtag.addEventListener('input', function () {
       if (hashtagArr[count].length > 20) {
         hashtag.setCustomValidity('Хэштег не должен превышать 20 символов');
       }
-      if (!letterRange.test(hashtagArr[count])) {
+      if (!LETTER_RANGE.test(hashtagArr[count])) {
         hashtag.setCustomValidity('Хэштег содержит недопустимый символ');
       }
       if (hashtagArr[count][0] === '#' && hashtagArr[count].length < 2) {
