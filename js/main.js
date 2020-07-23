@@ -306,7 +306,7 @@ pictureAll.addEventListener('click', function (evt) {
 
 pictureAll.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
-    var pictureLink = evt.target.closest('a')
+    var pictureLink = evt.target.closest('a');
     var dataId = pictureLink.dataset.id;
     renderBigPhoto(photos[dataId]);
     bigPictureOpen();
