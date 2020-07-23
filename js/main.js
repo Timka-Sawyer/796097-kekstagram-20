@@ -155,7 +155,7 @@ var bigPictureClose = function () {
   bigPhoto.classList.add('hidden');
   document.removeEventListener('keydown', onBigPictureEscPress);
   document.querySelector('body').classList.remove('modal-open');
-}
+};
 
 var bigPictureOpen = function () {
   bigPhoto.classList.remove('hidden');
@@ -298,9 +298,8 @@ hashtag.addEventListener('input', function () {
 var pictureAll = document.querySelector('.pictures');
 
 pictureAll.addEventListener('click', function (evt) {
-  var pictureLink = evt.target.closest('a')
+  var pictureLink = evt.target.closest('a');
   var dataId = pictureLink.dataset.id;
-  console.log(dataId);
   renderBigPhoto(photos[dataId]);
   bigPictureOpen();
 });
@@ -308,9 +307,8 @@ pictureAll.addEventListener('click', function (evt) {
 pictureAll.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     var pictureLink = evt.target.closest('a')
-  var dataId = pictureLink.dataset.id;
-  console.log(dataId);
-  renderBigPhoto(photos[dataId]);
-  bigPictureOpen();
+    var dataId = pictureLink.dataset.id;
+    renderBigPhoto(photos[dataId]);
+    bigPictureOpen();
   }
 });
