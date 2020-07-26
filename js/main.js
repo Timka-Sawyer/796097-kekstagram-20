@@ -1,45 +1,6 @@
 'use strict';
 
-var COUNT = 25;
-var COMMENTS_NAMES = ['Альпака', 'Капибара', 'Енот', 'Тануки', 'Хомяк', 'Суслик'];
-var COMMENTS_MESSAGE = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-];
-var SCALE_STEP = 25;
-var SCALE_MIN_VALUE = 25;
-var SCALE_MAX_VALUE = 100;
-var SCALE_DEFAULT_VALUE = 100;
-
-var bigPictureCancle = document.querySelector('.big-picture__cancel');
-var photoListElement = document.querySelector('.pictures');
-
-var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-var bigPhoto = document.querySelector('.big-picture');
-var scaleSmall = document.querySelector('.scale__control--smaller');
-var scaleBig = document.querySelector('.scale__control--bigger');
-var scaleValue = document.querySelector('.scale__control--value');
-var EFFECT_DEFAULT_CLASS = 'none';
-var EFFECT_CLASS_FIRST_PART = 'effects__preview--';
-var effectSecondPart = EFFECT_DEFAULT_CLASS;
-var imgClass = document.querySelector('.img-upload__preview');
-var effectLevel = document.querySelector('.img-upload__effect-level');
-var effectLevelDepth = document.querySelector('.effect-level__depth');
-var imgUploadEffects = document.querySelector('.img-upload__effects');
-var levelBar = document.querySelector('.effect-level__line');
-var uploadPhoto = document.querySelector('#upload-file');
-var overlayEdit = document.querySelector('.img-upload__overlay');
-var overlayEditClose = document.querySelector('#upload-cancel');
-var hashtagArr = null;
-var hashtag = document.querySelector('.text__hashtags');
-var LETTER_RANGE = /[#^a-zA-Zа-яёА-ЯЁ0-9]+/g;
-var effectPin = document.querySelector('.effect-level__pin');
-var effectPinValue = document.querySelector('.effect-level__value');
-
+/*
 var getRandomInLimit = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -195,6 +156,7 @@ var onPopupEscPress = function (evt) {
 };
 
 // ВЫБОР ФИЛЬТРА
+
 var setEffectValue = function (value) {
   effectPinValue.value = value;
   effectPin.style.left = value + '%';
@@ -294,7 +256,9 @@ hashtag.addEventListener('input', function () {
     }
   }
 });
+*/
 
+/*
 var pictureAll = document.querySelector('.pictures');
 
 pictureAll.addEventListener('click', function (evt) {
@@ -312,3 +276,4 @@ pictureAll.addEventListener('keydown', function (evt) {
     bigPictureOpen();
   }
 });
+*/
