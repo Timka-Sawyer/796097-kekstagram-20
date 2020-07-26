@@ -11,7 +11,6 @@
         'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
         'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
     ];
-
     var photoListElement = document.querySelector('.pictures');
     var photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
