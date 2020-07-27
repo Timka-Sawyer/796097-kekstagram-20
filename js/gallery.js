@@ -119,8 +119,6 @@
       effectLevelDepth.style.width = effectPin.offsetLeft + 'px';
       if (effectPin.offsetLeft >= 0 && effectPin.offsetLeft <= barWidth) {
         effectPin.style.left = (effectPin.offsetLeft - shift.x) + 'px';
-        console.log('ppp' + barWidth);
-        console.log(effectPin.offsetLeft);
       }
 
       if (effectPin.offsetLeft < 0) {
