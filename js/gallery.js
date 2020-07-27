@@ -95,15 +95,54 @@
   imgUploadEffects.addEventListener('change', onImgEffectChange);
 
   // НАСТРОЙКА ФИЛЬТРА
-  effectPin.addEventListener('mouseup', function () {
+
+  effectPin.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    var startCoords = {
+      x: evt.clientX,
+    };
     var minSliderPosition = levelBar.offsetLeft - effectPin.offsetWidth;
     var maxSliderPosition = minSliderPosition + levelBar.offsetWidth;
     var barWidth = maxSliderPosition - minSliderPosition;
-    var pinPosition = effectPin.offsetLeft;
-    var onePercent = barWidth / 100;
-    var pinPercents = pinPosition / onePercent;
 
-    setEffectValue(pinPercents);
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,
+      };
+
+      effectLevelDepth.style.width = effectPin.offsetLeft + 'px';
+      if (effectPin.offsetLeft >= 0 && effectPin.offsetLeft <= barWidth) {
+        effectPin.style.left = (effectPin.offsetLeft - shift.x) + 'px';
+        console.log('ppp' + barWidth);
+        console.log(effectPin.offsetLeft);
+      }
+
+      if (effectPin.offsetLeft < 0) {
+        effectPin.style.left = '0px';
+      } else if (effectPin.offsetLeft > barWidth) {
+        effectPin.style.left = barWidth + 'px';
+      }
+    };
+
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
+      var pinPosition = effectPin.offsetLeft;
+      var onePercent = barWidth / 100;
+      var pinPercents = pinPosition / onePercent;
+
+      setEffectValue(Math.round(pinPercents));
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
 
   // НАСТРОЙКА РАЗМЕРА
